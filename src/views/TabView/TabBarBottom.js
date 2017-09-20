@@ -19,6 +19,7 @@ type DefaultProps = {
   activeTintColor: string,
   activeBackgroundColor: string,
   inactiveTintColor: string,
+  changeOpacity: boolean,
   inactiveBackgroundColor: string,
   showLabel: boolean,
 };
@@ -27,6 +28,7 @@ type Props = {
   activeTintColor: string,
   activeBackgroundColor: string,
   inactiveTintColor: string,
+  changeOpacity: boolean,
   inactiveBackgroundColor: string,
   position: Animated.Value,
   navigation: NavigationScreenProp<NavigationState, NavigationAction>,
@@ -54,6 +56,7 @@ export default class TabBarBottom extends PureComponent<
     activeBackgroundColor: 'transparent',
     inactiveTintColor: '#929292', // Default inactive tint color in iOS 10
     inactiveBackgroundColor: 'transparent',
+    changeOpacity: true,
     showLabel: true,
     showIcon: true,
   };
@@ -66,6 +69,7 @@ export default class TabBarBottom extends PureComponent<
       navigation,
       activeTintColor,
       inactiveTintColor,
+      changeOpacity,
       labelStyle,
       showLabel,
     } = this.props;
@@ -108,6 +112,7 @@ export default class TabBarBottom extends PureComponent<
       navigation,
       activeTintColor,
       inactiveTintColor,
+      changeOpacity,
       renderIcon,
       showIcon,
     } = this.props;
@@ -120,6 +125,7 @@ export default class TabBarBottom extends PureComponent<
         navigation={navigation}
         activeTintColor={activeTintColor}
         inactiveTintColor={inactiveTintColor}
+        changeOpacity={changeOpacity}
         renderIcon={renderIcon}
         scene={scene}
         style={styles.icon}

@@ -15,6 +15,7 @@ import type { TabScene } from './TabView';
 type Props = {
   activeTintColor: string,
   inactiveTintColor: string,
+  changeOpacity: boolean,
   scene: TabScene,
   position: Animated.Value,
   navigation: NavigationScreenProp<NavigationState, NavigationAction>,
@@ -32,6 +33,7 @@ export default class TabBarIcon extends PureComponent<void, Props, void> {
       navigation,
       activeTintColor,
       inactiveTintColor,
+      changeOpacity,
       style,
     } = this.props;
     const { route, index } = scene;
@@ -50,7 +52,7 @@ export default class TabBarIcon extends PureComponent<void, Props, void> {
     // active and inactive one, so we can fade between them.
     return (
       <View style={style}>
-        <Animated.View style={[styles.icon, { opacity: activeOpacity }]}>
+        <Animated.View style={[styles.icon, changeOpacity[index] && { opacity: activeOpacity }]}>
           {this.props.renderIcon({
             route,
             index,
@@ -58,7 +60,7 @@ export default class TabBarIcon extends PureComponent<void, Props, void> {
             tintColor: activeTintColor,
           })}
         </Animated.View>
-        <Animated.View style={[styles.icon, { opacity: inactiveOpacity }]}>
+        <Animated.View style={[styles.icon, changeOpacity[index] && { opacity: inactiveOpacity }]}>
           {this.props.renderIcon({
             route,
             index,

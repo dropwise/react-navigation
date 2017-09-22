@@ -48,28 +48,44 @@ export default class TabBarIcon extends PureComponent<void, Props, void> {
       inputRange,
       outputRange: inputRange.map((i: number) => (i === index ? 0 : 1)),
     });
+    const isFocused = activeOpacity === 1;
     // We render the icon twice at the same position on top of each other:
     // active and inactive one, so we can fade between them.
-    return (
-      <View style={style}>
-        <Animated.View style={[styles.icon, changeOpacity[index] && { opacity: activeOpacity }]}>
-          {this.props.renderIcon({
-            route,
-            index,
-            focused: true,
-            tintColor: activeTintColor,
-          })}
-        </Animated.View>
-        <Animated.View style={[styles.icon, changeOpacity[index] && { opacity: inactiveOpacity }]}>
-          {this.props.renderIcon({
-            route,
-            index,
-            focused: false,
-            tintColor: inactiveTintColor,
-          })}
-        </Animated.View>
-      </View>
-    );
+    if (changeOpacity[index]) {
+      return (
+        <View style={style}>
+          <Animated.View style={[styles.icon, { opacity: activeOpacity }]}>
+            {this.props.renderIcon({
+              route,
+              index,
+              focused: true,
+              tintColor: activeTintColor,
+            })}
+          </Animated.View>
+          <Animated.View style={[styles.icon, { opacity: inactiveOpacity }]}>
+            {this.props.renderIcon({
+              route,
+              index,
+              focused: false,
+              tintColor: inactiveTintColor,
+            })}
+          </Animated.View>
+        </View>
+      );
+    } else {
+      return (
+        <View style={style}>
+          <Animated.View style={styles.icon}>
+            {this.props.renderIcon({
+              route,
+              index,
+              focused: isFocused,
+              tintColor: activeTintColor,
+            })}
+          </Animated.View>
+        </View>
+      );
+    }
   }
 }
 

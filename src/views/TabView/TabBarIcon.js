@@ -51,7 +51,7 @@ export default class TabBarIcon extends PureComponent<void, Props, void> {
     const isFocused = activeOpacity === 1;
     // We render the icon twice at the same position on top of each other:
     // active and inactive one, so we can fade between them.
-    if (changeOpacity[index].change) {
+    if (changeOpacity[index]) {
       return (
         <View style={style}>
           <Animated.View style={[styles.icon, { opacity: activeOpacity }]}>
@@ -75,12 +75,20 @@ export default class TabBarIcon extends PureComponent<void, Props, void> {
     } else {
       return (
         <View style={style}>
-          <Animated.View style={styles.icon}>
+          <Animated.View style={[styles.icon, { opacity: activeOpacity }]}>
             {this.props.renderIcon({
               route,
               index,
-              focused: changeOpacity[index].name === route.routeName,
+              focused: true,
               tintColor: activeTintColor,
+            })}
+          </Animated.View>
+          <Animated.View style={[styles.icon, { opacity: 1 }]}>
+            {this.props.renderIcon({
+              route,
+              index,
+              focused: false,
+              tintColor: inactiveTintColor,
             })}
           </Animated.View>
         </View>

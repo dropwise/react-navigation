@@ -49,7 +49,7 @@ export default class TabBarIcon extends PureComponent<void, Props, void> {
       outputRange: inputRange.map((i: number) => (i === index ? 0 : 1)),
     });
     const isFocused = activeOpacity === 1;
-    console.log(activeOpacity);
+    console.log(position);
     // We render the icon twice at the same position on top of each other:
     // active and inactive one, so we can fade between them.
     if (changeOpacity[index]) {
